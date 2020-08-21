@@ -1,17 +1,25 @@
-  PVector location;
+PVector location;
 PVector velocity = new PVector();
 PVector gravity1 = new PVector(0, 1);
 PVector gravity2 = new PVector(0, 1);
+int ballMulti = 16;
+int ballColl = ballMulti/2;
 ArrayList<Mover> moveListe = new ArrayList<Mover>();
+
+
+
 
 void setup() {
   size(640, 360);
   velocity = new PVector(2.5, 5);
-  
-    for (int i = 0; i< 1; i++) {
+
+  for (int i = 0; i< 1; i++) {
     moveListe.add(new Mover(location = new PVector(100+ 50*i, 100)));
   }
 }
+
+
+
 
 void draw() {
   clear();
@@ -32,6 +40,9 @@ void draw() {
     }
   }
 }
+
+
+
 
 
 class Mover {
@@ -55,6 +66,9 @@ class Mover {
     acceleration.add(f);
   }
 
+
+
+
   void ShitUdate() { 
     velocity.add(acceleration);
     velocity.mult(0.99);
@@ -63,26 +77,33 @@ class Mover {
     acceleration.mult(0.1);
   }
 
+
+
+
   void display() {
     stroke(0);
     fill(175);
     //Scaling the size according to mass.
-    ellipse(location.x, location.y, mass*16, mass*16);
+    ellipse(location.x, location.y, mass*ballMulti, mass* ballMulti);
   }
-
+  
+  
+  
+  
+  
   //Somewhat arbitrarily, we are deciding that an object bounces when it hits the edges of a window.
   void checkEdges() {
-    if (location.x > width) {
-      location.x = width;
+    if (location.x > width - mass * ballColl) {
+      location.x = width - mass * ballColl;
+      velocity.x *= - 1;
+    } else if (location.x < 0 + mass * ballColl) {
       velocity.x *= -1;
-    } else if (location.x < 0) {
-      velocity.x *= -1;
-      location.x = 0;
+      location.x = 0 - mass * ballColl;
     }
 
-    if (location.y  > height-1) {
+    if (location.y  > height- mass*ballColl) {
       //Even though we said we shouldn't touch location and velocity directly, there are some exceptions. Here we are doing so as a quick and easy way to reverse the direction of our object when it reaches the edge.
-      location.y = height;
+      location.y = height- mass*ballColl;
       velocity.y *= -1;
       acceleration.mult(-1);
     }
