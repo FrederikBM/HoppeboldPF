@@ -29,7 +29,7 @@ void draw() {
   for (int i = 0; i< moveListe.size(); i++) {
     Mover mover = moveListe.get(i);
     mover.applyForce(gravity1);
-    mover.ShitUdate();
+    mover.Update();
     mover.display();
     mover.checkEdges();
   }
@@ -99,7 +99,7 @@ class Mover {
 
 
 
-  void ShitUdate() { 
+  void Update() { 
     velocity.add(acceleration);
     velocity.mult(0.99);
     location.add(velocity);
