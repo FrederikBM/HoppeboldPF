@@ -51,7 +51,7 @@ void mousePressed(){
       moveListe.add(new Mover(location = new PVector(ballMulti+ 50*o, 100)));
       o++;
       if(o*50>width){
-        o=1;
+        o=0;
       }
     }
   
