@@ -34,16 +34,31 @@ void draw() {
     mover.checkEdges();
   }
 
-  if (keyPressed) {
-    if (keyCode == UP) {
+  if (keyPressed && keyCode == UP) {
     for (int i = 0; i< moveListe.size(); i++) {
       Mover mover = moveListe.get(i);
-      PVector wind = new PVector(0, -10);
-      mover.applyForce(wind);
-      }
+      PVector windUP = new PVector(0, -10);
+      mover.applyForce(windUP);
     }
+  } else if(keyPressed && keyCode == DOWN){
+    for (int i = 0; i< moveListe.size(); i++) {
+      Mover mover = moveListe.get(i);
+      PVector windDOWN = new PVector(0, 10);
+      mover.applyForce(windDOWN);
+      }
+  } else if(keyPressed && keyCode == LEFT){
+    for (int i = 0; i< moveListe.size(); i++) {
+      Mover mover = moveListe.get(i);
+      PVector windLEFT = new PVector(-10, 0);
+      mover.applyForce(windLEFT);
+      }
+  } else if(keyPressed && keyCode == RIGHT){
+    for (int i = 0; i< moveListe.size(); i++) {
+      Mover mover = moveListe.get(i);
+      PVector windRIGHT = new PVector(10, 0);
+      mover.applyForce(windRIGHT);
+      }
   }
-  
   
 }
 
@@ -68,7 +83,7 @@ class Mover {
   float mass;
 
   Mover(PVector location ) {
-    //And for now, we’ll just set the mass equal to 1 for simplicity.
+    //And for now, we’ll just set the mass equal to 2 for simplicity.
     mass = 2;
     this.location = location;
     velocity = new PVector(0, 0);
@@ -111,7 +126,7 @@ class Mover {
       velocity.x *= - 1;
     } else if (location.x < 0 + mass * ballColl) {
       velocity.x *= -1;
-      location.x = 0 - mass * ballColl;
+      location.x = 0 + mass * ballColl;
     }
 
     if (location.y  > height- mass*ballColl) {
